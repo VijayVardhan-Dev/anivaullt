@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ShimmerCard from './ShimmerCard';
-import RatingCard from './RatingCard';
 import '../index.css'; 
 
 const HeroSec = ({ recentanimelist, heroloading }) => {
@@ -40,7 +39,7 @@ const HeroSec = ({ recentanimelist, heroloading }) => {
 
   return (
     <div
-      className="flex lg:block w-full h-[350px] mt-12 md:h-[400px] lg:h-[500px] lg:slideshow-container lg:relative relative rounded-lg shadow-lg overflow-hidden"
+      className="flex lg:block w-full h-[350px] mt-7 md:h-[400px] lg:h-[500px] lg:slideshow-container lg:relative relative rounded-lg shadow-lg overflow-hidden"
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
     >
@@ -57,11 +56,11 @@ const HeroSec = ({ recentanimelist, heroloading }) => {
       </div>
 
       {/* LARGE SCREEN layout (banner image) */}
-      <div className="hidden lg:block relative">
+      <div className="hidden lg:block relative w-full h-full">
         <img
           src={currentSlide.bannerImage}
           alt={currentSlide.title?.english || "Anime Banner"}
-          className="object-cover w-full h-full"
+          className="absolute inset-0 w-full h-full object-cover"
           key={`${currentSlide.id}-banner`}
         />
       </div>
@@ -80,11 +79,11 @@ const HeroSec = ({ recentanimelist, heroloading }) => {
           dangerouslySetInnerHTML={{ __html: currentSlide.description || "No description available." }}
         />
 
-        <div className="flex justify-center mt-4">
-          <RatingCard rating={currentSlide.averageScore} size="md" />
+        <div className="text-sm text-gray-400 lg:text-gray-300 mt-4 font-semibold">
+          Average Score: {currentSlide.averageScore ?? 'N/A'}
         </div>
 
-        <div className="mt-6 space-x-4">
+        <div className="mt-6 space-x-4 space-y-2">
           <button 
             onClick={() => navigate(`/watch/${currentSlide.id}/1`)}
             className="text-white bg-red-600 hover:bg-red-700 rounded-full px-8 py-3 transition-all duration-300 cursor-pointer font-bold button-press hover-glow animate-bounce-in"
@@ -93,7 +92,7 @@ const HeroSec = ({ recentanimelist, heroloading }) => {
           </button>
           <button 
             onClick={() => navigate(`/anime/${currentSlide.id}`)}
-            className="text-white border-2 border-white rounded-full px-6 py-2 hover:bg-white hover:text-black transition-all duration-300 cursor-pointer font-bold button-press"
+            className="text-white border-2 border-white rounded-full px-7 py-2 hover:bg-white hover:text-black transition-all duration-300 cursor-pointer font-bold button-press"
           >
             Learn More
           </button>

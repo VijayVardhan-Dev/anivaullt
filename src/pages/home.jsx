@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState } from "react";
 import { favourites, getTopAnime, searchAnime ,trending ,recentanime} from "../api/aniList";
 import TopAnime from "../components/popanime";
 import Header from "../components/header";
@@ -21,36 +21,33 @@ const Home = () => {
   const [popularloading,setpopularloading] = useState(true);
   const [searchloading,setsearchloading] = useState(true);
 
-  // Memoized fetch function to prevent unnecessary re-renders
-  const fetchAnimeData = useCallback(async () => {
-    try {
-      // Fetch all data in parallel for better performance
-      const [Topresult, Trendresult, heroresult, Favourresult] = await Promise.all([
-        getTopAnime(),
-        trending(),
-        recentanime(),
-        favourites()
-      ]);
-
-      setTopanimeList(Topresult);
-      setTrendanimeList(Trendresult);
-      setrecentanimeList(heroresult);
-      setFavouranimeList(Favourresult);
-    } catch (error) {
-      console.error("Error fetching anime data:", error);
-    } finally {
-      // Set all loading states to false
-      setpopularloading(false);
-      settrendloading(false);
-      setheroloading(false);
-      setfavorloading(false);
-    }
-  }, []);
-
   // Initial popular anime fetch
   useEffect(() => {
-    fetchAnimeData();
-  }, [fetchAnimeData]);
+    
+    const fetchDetails = async () => {
+      try{
+      const Topresult = await getTopAnime();
+      setpopularloading(false);
+      const Trendresult = await trending();
+       settrendloading(false);
+      const heroresult  = await recentanime();
+      setheroloading(false);
+
+      const Favourresult = await favourites();
+      setfavorloading(false);
+      setTopanimeList(Topresult);
+      setTrendanimeList(Trendresult)
+      setFavouranimeList(Favourresult)
+      setrecentanimeList(heroresult);
+     
+      }
+      catch(error){
+        console.error("there is a error fetching anime",error)
+      }
+    };
+    fetchDetails();
+  
+  }, []);
 
   // Debounce effect (300ms delay)
   useEffect(() => {
@@ -104,30 +101,28 @@ const Home = () => {
         searchTerm={searchTerm}
       />
 
-      <div className="pt-[100px]">
-        {
-          searchTerm.trim() !== '' ? (
-           <SearchAnime searchResult = {searchResult} searchloading = {searchloading}/>
-          ) : (
-            <>
-              <section>
-                <Herosec recentanimelist = {recentanimelist} heroloading = {heroloading}/>
-              </section>
-              <section>
-              <TrendAnime TrendanimeList={TrendanimeList} trendloading = {trendloading} />
-              </section>
+      {
+        searchTerm.trim() !== '' ? (
+         <SearchAnime searchResult = {searchResult} searchloading = {searchloading}/>
+        ) : (
+          <>
+            <section>
+              <Herosec recentanimelist = {recentanimelist} heroloading = {heroloading}/>
+            </section>
+            <section>
+            <TrendAnime TrendanimeList={TrendanimeList} trendloading = {trendloading} />
+            </section>
 
-              <section>
-              <TopAnime TopanimeList={TopanimeList} popularloading = {popularloading}/>
-              </section>
-           
-              <section>
-              <FavourAnime FavouranimeList={FavouranimeList} favorloading = {favorloading} />
-              </section>
-            </>
-          )
-        }
-      </div>
+            <section>
+            <TopAnime TopanimeList={TopanimeList} popularloading = {popularloading}/>
+            </section>
+         
+            <section>
+            <FavourAnime FavouranimeList={FavouranimeList} favorloading = {favorloading} />
+            </section>
+          </>
+        )
+      }
     </main>
   );
 };
