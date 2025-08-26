@@ -1,28 +1,24 @@
 import React from 'react'
+import ShimmerCard from './ShimmerCard'
+import AnimeCard from './AnimeCard'
 
-const topAnime = ({TopanimeList,popularloading}) => {
+const topAnime = React.memo(({TopanimeList,popularloading}) => {
   return (
      <div className="p-4 text-white">
-      <p className="text-2xl text-gradient font-bold mb-4">Popular</p>
-      {popularloading?(
-        <div>Loading...</div>
-      ):
-      (      <ul className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-        {TopanimeList.map((anime) => (
-          <li key={anime.id} className=" p-3 rounded shadow-md">
-            <img
-              src={anime.coverImage.large}
-              alt={anime.title.romaji}
-              className="w-full rounded mb-2"
-            />
-            <h2 className="text-lg font-semibold truncate">{anime.title.english}</h2>
-         
-          </li>
-        ))}
-      </ul>)}
-
+      <p className="text-2xl text-gradient font-bold mb-6 animate-slide-in-left">Popular</p>
+      {popularloading ? (
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+          <ShimmerCard type="grid" count={10} />
+        </div>
+      ) : (
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+          {TopanimeList.map((anime, index) => (
+            <AnimeCard key={anime.id} anime={anime} index={index} />
+          ))}
+        </div>
+      )}
     </div>
-  )
-}
+  );
+});
 
-export default topAnime
+export default topAnime;

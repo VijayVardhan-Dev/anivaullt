@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import ShimmerCard from './ShimmerCard';
+import RatingCard from './RatingCard';
 import '../index.css'; 
 
 const HeroSec = ({ recentanimelist, heroloading }) => {
+  const navigate = useNavigate();
   const [slides, setSlides] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isHovering, setIsHovering] = useState(false);
@@ -23,10 +27,12 @@ const HeroSec = ({ recentanimelist, heroloading }) => {
     }
   }, [isHovering, slides.length]);
 
-  // Safe guard: if no slides yet or still loading, show placeholder
+  // Safe guard: if no slides yet or still loading, show shimmer
   if (heroloading || slides.length === 0) {
     return (
-     <div>Loading...</div>
+      <div className="mt-7">
+        <ShimmerCard type="hero" count={1} />
+      </div>
     );
   }
 
@@ -34,7 +40,7 @@ const HeroSec = ({ recentanimelist, heroloading }) => {
 
   return (
     <div
-      className="flex lg:block w-full h-[350px] mt-7 md:h-[400px] lg:h-[500px] lg:slideshow-container lg:relative relative rounded-lg shadow-lg overflow-hidden"
+      className="flex lg:block w-full h-[350px] mt-12 md:h-[400px] lg:h-[500px] lg:slideshow-container lg:relative relative rounded-lg shadow-lg overflow-hidden"
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
     >
@@ -51,12 +57,14 @@ const HeroSec = ({ recentanimelist, heroloading }) => {
       </div>
 
       {/* LARGE SCREEN layout (banner image) */}
-      <img
-        src={currentSlide.bannerImage}
-        alt={currentSlide.title?.english || "Anime Banner"}
-        className="hidden lg:block object-cover w-full h-full"
-        key={`${currentSlide.id}-banner`}
-      />
+      <div className="hidden lg:block relative">
+        <img
+          src={currentSlide.bannerImage}
+          alt={currentSlide.title?.english || "Anime Banner"}
+          className="object-cover w-full h-full"
+          key={`${currentSlide.id}-banner`}
+        />
+      </div>
       <div className="hidden lg:block absolute inset-0 bg-black/60 z-0"></div>
 
       {/* TEXT AND BUTTON */}
@@ -72,13 +80,22 @@ const HeroSec = ({ recentanimelist, heroloading }) => {
           dangerouslySetInnerHTML={{ __html: currentSlide.description || "No description available." }}
         />
 
-        <div className="text-sm text-gray-400 lg:text-gray-300 mt-4 font-semibold">
-          Average Score: {currentSlide.averageScore ?? 'N/A'}
+        <div className="flex justify-center mt-4">
+          <RatingCard rating={currentSlide.averageScore} size="md" />
         </div>
 
-        <div className="mt-6">
-          <button className="text-white border-2 border-white rounded-full px-6 py-2 hover:bg-white hover:text-black transition-colors duration-300 cursor-pointer font-bold">
+        <div className="mt-6 space-x-4">
+          <button 
+            onClick={() => navigate(`/watch/${currentSlide.id}/1`)}
+            className="text-white bg-red-600 hover:bg-red-700 rounded-full px-8 py-3 transition-all duration-300 cursor-pointer font-bold button-press hover-glow animate-bounce-in"
+          >
             Watch Now
+          </button>
+          <button 
+            onClick={() => navigate(`/anime/${currentSlide.id}`)}
+            className="text-white border-2 border-white rounded-full px-6 py-2 hover:bg-white hover:text-black transition-all duration-300 cursor-pointer font-bold button-press"
+          >
+            Learn More
           </button>
         </div>
       </div>
