@@ -1,10 +1,16 @@
 import React, { useState } from "react";
 import { MotionConfig, motion } from "framer-motion";
 
+const AnimatedHamburgerButton = ({ onToggle, className = "", isOpen }) => {
+  const [internalActive, setInternalActive] = useState(false);
+  const active = typeof isOpen === 'boolean' ? isOpen : internalActive;
 
+  const handleClick = () => {
+    const next = !active;
+    if (typeof isOpen !== 'boolean') setInternalActive(next);
+    if (typeof onToggle === "function") onToggle(next);
+  };
 
-const AnimatedHamburgerButton = () => {
-  const [active, setActive] = useState(false);
   return (
     <MotionConfig
       transition={{
@@ -15,8 +21,10 @@ const AnimatedHamburgerButton = () => {
       <motion.button
         initial={false}
         animate={active ? "open" : "closed"}
-        onClick={() => setActive((pv) => !pv)}
-        className="relative h-15 w-20 rounded-full bg-white/0 transition-colors "
+        onClick={handleClick}
+        className={`relative h-15 w-20 rounded-full bg-white/0 transition-colors ${className}`}
+        type="button"
+        aria-label={active ? "Close menu" : "Open menu"}
       >
         <motion.span
           variants={VARIANTS.top}

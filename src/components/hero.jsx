@@ -86,7 +86,7 @@ const HeroSec = ({ recentanimelist, heroloading }) => {
         <div className="mt-6 space-x-4 space-y-2">
           <button 
             onClick={() => navigate(`/watch/${currentSlide.id}/1`)}
-            className="text-white bg-red-600 hover:bg-red-700 rounded-full px-8 py-3 transition-all duration-300 cursor-pointer font-bold button-press hover-glow animate-bounce-in"
+            className="text-white bg-red-600 hover:bg-red-700 rounded-full h-11 w-37 transition-all duration-300 cursor-pointer font-bold button-press hover-glow animate-bounce-in "
           >
             Watch Now
           </button>

@@ -31,3 +31,4 @@ const RatingCard = ({ rating, size = 'sm' }) => {
 };
 
 export default RatingCard;
+
