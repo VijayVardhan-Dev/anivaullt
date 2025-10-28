@@ -12,9 +12,9 @@ const AnimeCard = ({ anime }) => {
   return (
     <div 
       onClick={handleClick}
-      className="group cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-2xl h-full"
+      className="group cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/30 h-full"
     >
-      <div className="relative overflow-hidden rounded-lg bg-white/5 backdrop-blur-sm border border-white/10 h-full flex flex-col">
+      <div className="relative overflow-hidden rounded-lg bg-white/5 backdrop-blur-sm border border-white/10 hover:border-purple-500/50 h-full flex flex-col transition-all duration-300">
         {/* Rating Badge */}
         <div className="absolute top-2 right-2 z-10">
           <RatingCard rating={anime.averageScore} size="sm" />
@@ -22,7 +22,7 @@ const AnimeCard = ({ anime }) => {
         
         {/* Episode Count Badge */}
         {anime.episodes && (
-          <div className="absolute top-2 left-2 z-10 bg-black/60 backdrop-blur-sm text-white text-xs px-2 py-1 rounded-full">
+          <div className="absolute top-2 left-2 z-10 bg-black/70 backdrop-blur-sm text-white text-xs px-2 py-1 rounded-full font-semibold">
             EP {anime.episodes}
           </div>
         )}
@@ -36,8 +36,8 @@ const AnimeCard = ({ anime }) => {
           />
           
           {/* Hover Overlay */}
-          <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-            <div className="bg-white/20 backdrop-blur-sm rounded-full p-3">
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+            <div className="bg-white/20 backdrop-blur-sm rounded-full p-3 transform scale-0 group-hover:scale-100 transition-transform duration-300">
               <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd" />
               </svg>
@@ -47,7 +47,7 @@ const AnimeCard = ({ anime }) => {
         
         {/* Content */}
         <div className="p-4 space-y-2 flex-1 flex flex-col">
-          <h3 className="font-semibold text-white line-clamp-2 text-sm flex-1">
+          <h3 className="font-semibold text-white line-clamp-2 text-sm flex-1 group-hover:text-purple-300 transition-colors">
             {anime.title?.english || anime.title?.romaji}
           </h3>
           
@@ -57,7 +57,7 @@ const AnimeCard = ({ anime }) => {
               {anime.genres.slice(0, 2).map((genre, index) => (
                 <span 
                   key={index}
-                  className="text-xs bg-white/10 backdrop-blur-sm text-gray-300 px-2 py-1 rounded-full"
+                  className="text-xs bg-white/10 backdrop-blur-sm text-gray-300 px-2 py-1 rounded-full hover:bg-purple-500/30 transition-colors"
                 >
                   {genre}
                 </span>

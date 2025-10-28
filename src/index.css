@@ -24,6 +24,10 @@
 }
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
   body {
     font-family: "DM Sans", Arial, sans-serif;
     font-optical-sizing: auto;
@@ -65,13 +69,13 @@
 
 .trending {
 
-@apply mt-10;
+@apply mt-10 px-4 md:px-6;
 
 
 
 & ul {
 
-@apply flex flex-row overflow-x-auto gap-5 mt-7 ml-2 w-full px-7 ;
+@apply flex flex-row overflow-x-auto gap-5 mt-7 ml-2 w-full px-7 pb-4;
 
 }
 
@@ -79,7 +83,7 @@
 
 & ul li {
 
-@apply min-w-[230px] flex flex-row items-center;
+@apply min-w-[230px] flex flex-row items-center cursor-pointer;
 
 }
 
@@ -95,7 +99,7 @@
 
 & ul li img {
 
-@apply w-[127px] h-[163px] rounded-lg object-cover ;
+@apply w-[127px] h-[163px] rounded-lg object-cover shadow-lg;
 
 }
 

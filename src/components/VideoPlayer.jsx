@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import { ArrowLeft } from 'lucide-react';
 
 const VideoPlayer = ({ 
-  videoUrl, 
-  title, 
+  videoUrl,
   onEpisodeChange, 
   currentEpisode, 
   totalEpisodes,

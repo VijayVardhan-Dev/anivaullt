@@ -39,7 +39,7 @@ const HeroSec = ({ recentanimelist, heroloading }) => {
 
   return (
     <div
-      className="flex lg:block w-full h-[350px] mt-7 md:h-[400px] lg:h-[500px] lg:slideshow-container lg:relative relative rounded-lg shadow-lg overflow-hidden"
+      className="flex lg:block w-full h-[350px] mt-7 mx-4 md:mx-6 md:h-[400px] lg:h-[500px] lg:slideshow-container lg:relative relative rounded-lg shadow-2xl overflow-hidden border border-white/10"
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
     >
@@ -83,16 +83,16 @@ const HeroSec = ({ recentanimelist, heroloading }) => {
           Average Score: {currentSlide.averageScore ?? 'N/A'}
         </div>
 
-        <div className="mt-6 space-x-4 space-y-2">
+        <div className="mt-6 flex flex-wrap gap-3">
           <button 
             onClick={() => navigate(`/watch/${currentSlide.id}/1`)}
-            className="text-white bg-red-600 hover:bg-red-700 rounded-full h-11 w-37 transition-all duration-300 cursor-pointer font-bold button-press hover-glow animate-bounce-in "
+            className="text-white bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 rounded-full px-6 py-3 transition-all duration-300 cursor-pointer font-bold button-press hover-glow shadow-lg hover:shadow-red-500/50"
           >
-            Watch Now
+            ▶ Watch Now
           </button>
           <button 
             onClick={() => navigate(`/anime/${currentSlide.id}`)}
-            className="text-white border-2 border-white rounded-full px-7 py-2 hover:bg-white hover:text-black transition-all duration-300 cursor-pointer font-bold button-press"
+            className="text-white border-2 border-white/80 hover:border-purple-400 rounded-full px-6 py-3 hover:bg-white/10 backdrop-blur-sm transition-all duration-300 cursor-pointer font-bold button-press"
           >
             Learn More
           </button>
