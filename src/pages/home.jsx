@@ -92,7 +92,7 @@ const Home = () => {
   };
 
   return (
-    <main className="overflow-x-hidden">
+    <main className="overflow-x-hidden pt-[60px]">
       <Header
         navstate={navstate}
         navOpen={navOpen}
@@ -106,18 +106,18 @@ const Home = () => {
          <SearchAnime searchResult = {searchResult} searchloading = {searchloading}/>
         ) : (
           <>
-            <section>
+            <section id="hero">
               <Herosec recentanimelist = {recentanimelist} heroloading = {heroloading}/>
             </section>
-            <section>
+            <section id="trending">
             <TrendAnime TrendanimeList={TrendanimeList} trendloading = {trendloading} />
             </section>
 
-            <section>
+            <section id="popular">
             <TopAnime TopanimeList={TopanimeList} popularloading = {popularloading}/>
             </section>
          
-            <section>
+            <section id="favourites">
             <FavourAnime FavouranimeList={FavouranimeList} favorloading = {favorloading} />
             </section>
           </>
