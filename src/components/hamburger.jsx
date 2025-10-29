@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-// eslint-disable-next-line no-unused-vars
 import { MotionConfig, motion } from "framer-motion";
 
 const AnimatedHamburgerButton = ({ onToggle, className = "", isOpen }) => {
